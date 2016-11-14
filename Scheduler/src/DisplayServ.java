@@ -38,7 +38,22 @@ public class DisplayServ extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		try{
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
+					"postgres", "vvp");
+			String sql = "select * from scheduler";
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -54,7 +69,8 @@ public class DisplayServ extends HttpServlet {
 		try{
 			Class.forName("org.postgresql.Driver");
 			Connection connection = null;
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb","postgres", "vvp");
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
+					"postgres", "vvp");
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
