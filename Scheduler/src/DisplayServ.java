@@ -48,10 +48,9 @@ public class DisplayServ extends HttpServlet {
 			String sql = "select * from scheduler";
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			while(rs.next()){
 				Task task = new Task(rs.getInt("taskid"),rs.getString("task"),rs.getInt("duration"));
-				System.out.println(task.gettask());
-				System.out.println(task.getduration());
 				datalist.add(task);
 			}
 			
@@ -75,14 +74,21 @@ public class DisplayServ extends HttpServlet {
 		// TODO Auto-generated method stub
 		String task = request.getParameter("task");
 		int duration = Integer.parseInt(request.getParameter("duration"));
-		System.out.println(task);
-		System.out.println(duration);
+
 		
 		try{
 			Class.forName("org.postgresql.Driver");
 			Connection connection = null;
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
 					"postgres", "vvp");
+			String sql = "insert into scheduler (task, duration) values(?,?)";
+			
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, task);
+			pstmt.setInt(2, duration);
+			
+			pstmt.executeUpdate();
+			
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -90,6 +96,8 @@ public class DisplayServ extends HttpServlet {
 		catch(SQLException e){
 			e.printStackTrace();			
 		}
+		
+		response.sendRedirect("Display.jsp");
 		
 	}
 
