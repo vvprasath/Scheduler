@@ -7,7 +7,7 @@
 <title>Scheduler</title>
 </head>
 <body>
-<form data="DisplayServ" method="post">
+<form action="DisplayServ" method="post">
 Task: <input type="text" name="task">
 <br>
 Duration: <input type="text" name="duration">
