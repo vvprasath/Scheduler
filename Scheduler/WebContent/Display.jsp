@@ -4,9 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Scheduler</title>
 </head>
 <body>
+<form data="DisplayServ" method="post">
+Task: <input type="text" name="task">
+<br>
+Duration: <input type="text" name="duration">
+<br>
+<input type="submit" name="submit" value="Add task">
 
+</form>
 </body>
 </html>
