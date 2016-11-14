@@ -11,8 +11,9 @@ public class Task {
 		
 	}
 	
-	public Task(String task, int duration)
+	public Task(int taskid, String task, int duration)
 	{
+		this.taskid = taskid;
 		this.task = task;
 		this.duration = duration;
 	}

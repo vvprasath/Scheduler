@@ -49,8 +49,14 @@ public class DisplayServ extends HttpServlet {
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()){
-				
+				Task task = new Task(rs.getInt("taskid"),rs.getString("task"),rs.getInt("duration"));
+				System.out.println(task.gettask());
+				System.out.println(task.getduration());
+				datalist.add(task);
 			}
+			
+			request.setAttribute("datalist", datalist);
+			request.getRequestDispatcher("Display.jsp").forward(request, response);
 		}
 		catch(ClassNotFoundException e)
 		{
