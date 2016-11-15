@@ -97,7 +97,7 @@ public class DisplayServ extends HttpServlet {
 			e.printStackTrace();			
 		}
 		
-		response.sendRedirect("Display.jsp");
+		doGet(request,response);
 		
 	}
 
