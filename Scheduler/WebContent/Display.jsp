@@ -22,7 +22,8 @@ Duration: <input type="text" name="duration">
 	<tr>
 		<th> Task ID </th>
 		<th> Task </th>
-		<th> Duration </th>		
+		<th> Duration </th>
+		<th> </th>				
 	</tr>
 	
 	<c:forEach items="${datalist}" var="datalist">
@@ -30,6 +31,7 @@ Duration: <input type="text" name="duration">
 			<th> ${datalist.gettaskid()} </th>
 			<th> ${datalist.gettask()} </th>
 			<th> ${datalist.getduration()} </th>
+			<th> <a href="EditTask?id=${datalist.gettaskid()}"> Edit/Delete </a></th>
 					
 		</tr>
 	</c:forEach>
