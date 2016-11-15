@@ -45,7 +45,7 @@ public class DisplayServ extends HttpServlet {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
 					"postgres", "vvp");
-			String sql = "select * from scheduler";
+			String sql = "select * from scheduler order by taskid";
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			

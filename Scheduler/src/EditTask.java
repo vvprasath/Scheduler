@@ -72,7 +72,38 @@ public class EditTask extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String action = request.getParameter("submit");
+		
+		try{
+			Class.forName("org.postgresql.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
+					"postgres", "vvp");
+									
+			if(action.equals("Save")){
+				String sql = "update scheduler set task = ?, duration = ? where taskid = ?";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, request.getParameter("task"));
+				pstmt.setInt(2, Integer.parseInt(request.getParameter("duration")));
+				pstmt.setInt(3, Integer.parseInt(request.getParameter("taskid")));
+				pstmt.executeUpdate();
+			
+			}
+			else if(action.equals("Delete")){
+				String sql = "Delete from scheduler where taskid = ?";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(request.getParameter("taskid")));
+				pstmt.executeUpdate();
+			}
+			
+		}
+		catch(ClassNotFoundException e){
+			e.printStackTrace();			
+		}
+		catch(SQLException e){
+			e.printStackTrace();			
+		}
+		
+		response.sendRedirect("DisplayServ");
 	}
 
 }
