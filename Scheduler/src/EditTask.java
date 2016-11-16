@@ -38,11 +38,12 @@ public class EditTask extends HttpServlet {
 		// TODO Auto-generated method stub
 		Integer taskid = Integer.parseInt(request.getParameter("taskid"));
 		List<Task> datalist = new ArrayList<Task>();		
+		DBparms dbparms = new DBparms();
 		
 		try{
 			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
-					"postgres", "vvp");
+			Connection conn = DriverManager.getConnection(dbparms.geturl(),
+					dbparms.getuser(), dbparms.getpasswd());
 			String sql = "select * from scheduler where taskid = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, taskid);
@@ -73,11 +74,12 @@ public class EditTask extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("submit");
+		DBparms dbparms = new DBparms();
 		
 		try{
 			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
-					"postgres", "vvp");
+			Connection conn = DriverManager.getConnection(dbparms.geturl(),
+					dbparms.getuser(), dbparms.getpasswd());
 									
 			if(action.equals("Save")){
 				String sql = "update scheduler set task = ?, duration = ? where taskid = ?";

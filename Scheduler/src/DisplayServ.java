@@ -40,11 +40,12 @@ public class DisplayServ extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		List<Task> datalist = new ArrayList<Task>();
+		DBparms dbparms = new DBparms();
 		
 		try{
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
-					"postgres", "vvp");
+			Connection connection = DriverManager.getConnection(dbparms.geturl(),
+					dbparms.getuser(), dbparms.getpasswd());
 			String sql = "select * from scheduler order by taskid";
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -74,13 +75,13 @@ public class DisplayServ extends HttpServlet {
 		// TODO Auto-generated method stub
 		String task = request.getParameter("task");
 		int duration = Integer.parseInt(request.getParameter("duration"));
-
+		DBparms dbparms = new DBparms();
 		
 		try{
 			Class.forName("org.postgresql.Driver");
 			Connection connection = null;
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/mydb",
-					"postgres", "vvp");
+			connection = DriverManager.getConnection(dbparms.geturl(),
+					dbparms.getuser(), dbparms.getpasswd());
 			String sql = "insert into scheduler (task, duration) values(?,?)";
 			
 			PreparedStatement pstmt = connection.prepareStatement(sql);
